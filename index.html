@@ -17,28 +17,23 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <title>XKCD Browser</title>
 </head>
-
 <body>
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1>XKCD Browser</h1>
-    </div>
-  </div>
   <div id="app">
+      <p style="padding: 0">
+          <div class="btn-group btn-block">
+            <img class="logo" src="images/logo.png">
+            <button @click="firstComic" class="btn btn-lg">First Comic</button>
+            <button v-on:click="previousComic" class="btn btn-lg">Previous</button>
+            <button v-on:click="randomComic" class="btn btn-lg">Random</button>
+            <button v-on:click="nextComic" class="btn btn-lg">Next</button>
+            <button @click="lastComic" class="btn btn-lg">Last Comic</button>
+          </div>
+        </p>
       <div v-if="loading">
           <p><div class="spinner-border"></div>  Loading...</p>
         </div>
         <div v-else>
-          <p>
-            <div class="btn-group btn-block">
-              <button @click="firstComic" class="btn btn-lg">First Comic</button>
-              <button v-on:click="previousComic" class="btn btn-lg">Previous</button>
-              <button v-on:click="randomComic" class="btn btn-lg">Random</button>
-              <button v-on:click="nextComic" class="btn btn-lg">Next</button>
-              <button @click="lastComic" class="btn btn-lg">Last Comic</button>
-            </div>
-          </p>
-
+  
           <div class="d-flex">
             <div class="flex-item">
               <img v-bind:src="current.img" v-bind:alt="current.alt">
@@ -52,19 +47,23 @@
             </div>
           </div>
          
+          <div class="comment">
+            <h3>Add a Comment</h3>
+            <form v-on:submit.prevent="addComment">
+              <input v-model="addedName" placeholder="Name"></p>
+              <textarea v-model="addedComment" placeholder="Opinion goes here"></textarea>
+              <br />
+              <button class="btn btn-light" type="submit">Comment</button>
+            </form>
+          </div>
 
-          <h3>Add a Comment</h3>
-          <form v-on:submit.prevent="addComment">
-            <input v-model="addedName" placeholder="Name"></p>
-            <textarea v-model="addedComment"></textarea>
-            <br />
-            <button type="submit">Comment</button>
-          </form>
-          <h3>Comments</h3>
-          <div v-for="comment in comments[number]">
-            <hr>
-            <p>{{comment.text}}</p>
-            <p><i>-- {{comment.author}}</i> on {{comment.time}}</p>
+          <div class="comment">
+            <h3>Comments</h3>
+            <div v-for="comment in comments[number]">
+              <hr>
+              <p>{{comment.text}}</p>
+              <p><i>-- {{comment.author}}</i> on {{comment.time}}</p>
+            </div>    
           </div>
       </div>
   </div>
