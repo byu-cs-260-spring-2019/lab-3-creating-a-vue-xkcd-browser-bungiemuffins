@@ -4,31 +4,54 @@
 <head>
   <link rel="stylesheet" href="/styles.css" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <title>XKCD Browser</title>
 </head>
 
 <body>
-  <h1>XKCD Browser</h1>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1>XKCD Browser</h1>
+    </div>
+  </div>
   <div id="app">
       <div v-if="loading">
-          <p>Loading...</p>
+          <p><div class="spinner-border"></div>  Loading...</p>
         </div>
         <div v-else>
           <p>
-              <button @click="firstComic">First Comic</button>
-              <button v-on:click="previousComic">Previous</button>
-              <button v-on:click="randomComic">Random</button>
-              <button v-on:click="nextComic">Next</button>
-              <button @click="lastComic">Last Comic</button>
-
+            <div class="btn-group btn-block">
+              <button @click="firstComic" class="btn btn-lg">First Comic</button>
+              <button v-on:click="previousComic" class="btn btn-lg">Previous</button>
+              <button v-on:click="randomComic" class="btn btn-lg">Random</button>
+              <button v-on:click="nextComic" class="btn btn-lg">Next</button>
+              <button @click="lastComic" class="btn btn-lg">Last Comic</button>
+            </div>
           </p>
-          <h2>{{current.title}}</h2>
-          <img v-bind:src="current.img" v-bind:alt="current.alt">
-          <p>{{current.alt}}</p>
-          <p><i>#{{current.num}}, drawn on {{current.day}} {{month}} {{current.year}}</i></p>
 
-          <star-rating @rating-selected ="setRating"></star-rating>
-          <p>Average {{ratingAvg}}</p>
+          <div class="d-flex">
+            <div class="flex-item">
+              <img v-bind:src="current.img" v-bind:alt="current.alt">
+            </div>
+            <div class="flex-item">
+              <h2>{{current.title}}</h2>
+              <p>{{current.alt}}</p>
+              <p><i>#{{current.num}}, drawn on {{current.day}} {{month}} {{current.year}}</i></p>
+              <star-rating @rating-selected ="setRating"></star-rating>
+              <p>Average Rating {{ratingAvg}}</p>
+            </div>
+          </div>
+         
 
           <h3>Add a Comment</h3>
           <form v-on:submit.prevent="addComment">
