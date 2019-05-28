@@ -58,3 +58,9 @@ textarea {
     border-left: none;
     border-width: thin;
 }
+
+footer {
+    text-align: center;
+    font-size: xx-large;
+    padding: 5%;
+}
